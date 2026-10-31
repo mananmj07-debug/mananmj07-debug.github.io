@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JF Advisory | Accounting, Compliance &amp; Advisory</title>
-    <meta name="description" content="JF Advisory provides Virtual CFO services, foreign bookkeeping, tax planning, compliance and startup funding support for growing businesses.">
+    <title>Jain Financial Advisory | Accounting, Compliance &amp; Advisory</title>
+    <meta name="description" content="Jain Financial Advisory provides Virtual CFO services, foreign bookkeeping, tax planning, compliance and startup funding support for growing businesses.">
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -183,15 +183,33 @@
             .services-grid, .pillars, .steps { grid-template-columns: 1fr; }
             .hero-card, .panel { padding: 34px 26px; }
         }
+        /* Ambient animated background */
+        #ambient { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        .topbar, header.nav { position: relative; z-index: 60; }
+        header.nav { position: sticky; }
+        main, footer { position: relative; z-index: 1; }
+        .hero { background: linear-gradient(180deg, rgba(248,245,239,0.75) 0%, rgba(255,255,255,0.35) 100%); }
+        section { background: rgba(255,255,255,0.55); }
+        .bg-cream { background: rgba(248,245,239,0.72); }
+        .bg-stone { background: rgba(238,234,226,0.75); }
+        .hero::before, .hero::after { display: none; }
+        @media (min-width: 1025px) { .hero-grid { grid-template-columns: 1.1fr 0.9fr; } }
+        .topbar .container span, .topbar .container a { display: inline-flex; align-items: center; gap: 8px; }
+        .socials a svg { width: 16px; height: 16px; fill: currentColor; }
+        .contact-list li { display: flex; gap: 10px; align-items: flex-start; }
+        .contact-list svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 4px; stroke: var(--gold); fill: none; stroke-width: 1.6; }
+        @media (max-width: 600px) { .brand-name { font-size: 1.3rem; } .brand img { width: 38px; height: 38px; } }
     </style>
 </head>
 <body>
 
+    <canvas id="ambient" aria-hidden="true"></canvas>
+
     <!-- Top bar -->
     <div class="topbar">
         <div class="container">
-            <a href="mailto:contact@jainfinancials.com">contact@jainfinancials.com</a>
-            <span>+91 (XXX) XXX-XXXX</span>
+            <a href="mailto:jainfinancial@jfadvisory.in">jainfinancial@jfadvisory.in</a>
+            <span>Udaipur, India</span>
         </div>
     </div>
 
@@ -199,16 +217,16 @@
     <header class="nav" id="top">
         <div class="container nav-inner">
             <a href="#top" class="brand">
-                <img src="logo.png" alt="JF Advisory logo">
-                <span class="brand-name">JF Advisory</span>
+                <img src="logo.png" alt="Jain Financial Advisory logo">
+                <span class="brand-name">Jain Financial Advisory</span>
             </a>
             <button class="menu-toggle" aria-label="Open menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
                 <span></span><span></span><span></span>
             </button>
             <ul class="nav-links">
                 <li><a href="#services">Services</a></li>
-                <li><a href="#startups">Startups</a></li>
                 <li><a href="#compliance">Compliance</a></li>
+                <li><a href="#startups">Startups</a></li>
                 <li><a href="#about">About Us</a></li>
                 <li><a href="#contact" class="btn btn-primary">Free Consultation</a></li>
             </ul>
@@ -222,21 +240,17 @@
                 <div class="reveal">
                     <span class="eyebrow">Accounting &middot; Compliance &middot; Advisory</span>
                     <h1>Elevate Your <em>Financial</em> Trajectory</h1>
-                    <p class="lead">JF Advisory delivers trusted financial expertise, from Virtual CFO services and foreign bookkeeping to tax planning and startup capital raising. We master the numbers so you can focus on growing your business.</p>
-                    <div class="hero-actions">
-                        <a href="#services" class="btn btn-primary">Explore Our Services</a>
-                        <a href="#contact" class="btn btn-outline">Book a Strategy Call</a>
-                    </div>
+                    <p class="lead">Jain Financial Advisory delivers trusted financial expertise, from foreign bookkeeping and Virtual CFO services to tax planning and startup capital raising. We master the numbers so you can focus on growing your business.</p>
                 </div>
                 <div class="hero-card reveal">
                     <span class="eyebrow">How we help</span>
                     <h3>A complete finance function for your business</h3>
                     <p class="small">One dedicated team for every stage of growth.</p>
                     <ul>
-                        <li>Tax Planning &amp; Compliance</li>
-                        <li>Startup Funding Support</li>
                         <li>Global Bookkeeping</li>
                         <li>Virtual CFO Services</li>
+                        <li>Tax Planning &amp; Compliance</li>
+                        <li>Startup Funding Support</li>
                     </ul>
                 </div>
             </div>
@@ -266,18 +280,6 @@
                     </div>
                     <div class="service reveal">
                         <div class="num">02</div>
-                        <h3>Startup Ecosystem Support</h3>
-                        <p>Hands-on guidance from incorporation to investor-ready.</p>
-                        <ul>
-                            <li>End-to-End Startup Handholding</li>
-                            <li>Capital Raising &amp; Project Financing</li>
-                            <li>Pitch Presentations Preparation</li>
-                            <li>Funding Compliances Management</li>
-                            <li>Investor Reporting Packets</li>
-                        </ul>
-                    </div>
-                    <div class="service reveal">
-                        <div class="num">03</div>
                         <h3>Corporate Advisory &amp; FP&amp;A</h3>
                         <p>Strategic insight and reporting that support confident decisions.</p>
                         <ul>
@@ -288,33 +290,45 @@
                             <li>Payroll Management Solutions</li>
                         </ul>
                     </div>
+                    <div class="service reveal">
+                        <div class="num">03</div>
+                        <h3>Startup Ecosystem Support</h3>
+                        <p>Hands-on guidance from incorporation to investor-ready.</p>
+                        <ul>
+                            <li>End-to-End Startup Handholding</li>
+                            <li>Capital Raising &amp; Project Financing</li>
+                            <li>Pitch Presentations Preparation</li>
+                            <li>Funding Compliances Management</li>
+                            <li>Investor Reporting Packets</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Startups -->
-        <section id="startups" class="bg-cream">
+        <!-- 1. Bookkeeping -->
+        <section id="bookkeeping" class="bg-cream">
             <div class="container split">
                 <div class="reveal">
-                    <span class="eyebrow">For Startups</span>
-                    <h2>From First Idea to Funded Growth</h2>
+                    <span class="eyebrow">Bookkeeping</span>
+                    <h2>Clean, Accurate Books, Wherever You Operate</h2>
                     <div class="rule"></div>
-                    <p class="lead">Whether you are preparing for your first raise or scaling after a funding round, we act as an extension of your founding team.</p>
+                    <p class="lead">Reliable records are the foundation of every financial decision. We keep your books current, reconciled and ready for review.</p>
                     <ul class="feature-list">
-                        <li><span class="idx">i.</span><div><strong>Startup Handholding</strong><span class="desc">Structured support across finance, compliance and reporting.</span></div></li>
-                        <li><span class="idx">ii.</span><div><strong>Capital Raising &amp; Project Financing</strong><span class="desc">Preparation and support through the funding process.</span></div></li>
-                        <li><span class="idx">iii.</span><div><strong>Pitch &amp; Investor Reporting</strong><span class="desc">Clear, credible numbers for pitch decks and investor updates.</span></div></li>
+                        <li><span class="idx">i.</span><div><strong>Foreign Bookkeeping</strong><span class="desc">Ongoing bookkeeping for businesses operating internationally.</span></div></li>
+                        <li><span class="idx">ii.</span><div><strong>Book Cleaning &amp; Catch-up</strong><span class="desc">Bringing backlogged or untidy records up to date.</span></div></li>
+                        <li><span class="idx">iii.</span><div><strong>Payroll Management</strong><span class="desc">Accurate, timely payroll processing and records.</span></div></li>
                     </ul>
                 </div>
                 <div class="panel reveal">
-                    <h3>Investor-ready, from day one</h3>
-                    <p>We help founders build the financial foundation investors look for: clean books, sound forecasts and well-managed funding compliances.</p>
-                    <p class="quote">&ldquo;We don&rsquo;t just crunch numbers; we engineer financial roadmaps.&rdquo;</p>
+                    <h3>Books you can rely on</h3>
+                    <p>Accurate bookkeeping gives you a clear view of your business today and a dependable base for tax, reporting and planning.</p>
+                    <p class="quote">Organised. Reconciled. Always up to date.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Compliance -->
+        <!-- 2. Tax & Compliance -->
         <section id="compliance">
             <div class="container split">
                 <div class="panel reveal">
@@ -336,16 +350,65 @@
             </div>
         </section>
 
+        <!-- 3. FP&A / Virtual CFO -->
+        <section id="advisory" class="bg-cream">
+            <div class="container split">
+                <div class="reveal">
+                    <span class="eyebrow">Virtual CFO &amp; FP&amp;A</span>
+                    <h2>Strategic Finance Leadership, On Demand</h2>
+                    <div class="rule"></div>
+                    <p class="lead">Senior-level financial insight without the cost of a full-time CFO, with planning, reporting and forecasting that keep you ahead.</p>
+                    <ul class="feature-list">
+                        <li><span class="idx">i.</span><div><strong>Virtual CFO Services</strong><span class="desc">Ongoing strategic guidance for leadership decisions.</span></div></li>
+                        <li><span class="idx">ii.</span><div><strong>Financial Planning &amp; Analysis</strong><span class="desc">Budgets, forecasts and performance analysis.</span></div></li>
+                        <li><span class="idx">iii.</span><div><strong>Advanced MIS Reporting</strong><span class="desc">Clear management reports to track what matters.</span></div></li>
+                    </ul>
+                </div>
+                <div class="panel reveal">
+                    <h3>Decisions backed by data</h3>
+                    <p>We turn your financial data into insight, helping you plan with confidence, manage cash flow and measure growth.</p>
+                    <p class="quote">Insight. Foresight. Clarity.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Startups -->
+        <section id="startups">
+            <div class="container split">
+                <div class="panel reveal">
+                    <h3>Investor-ready, from day one</h3>
+                    <p>We help founders build the financial foundation investors look for: clean books, sound forecasts and well-managed funding compliances.</p>
+                    <p class="quote">&ldquo;We don&rsquo;t just crunch numbers; we engineer financial roadmaps.&rdquo;</p>
+                </div>
+                <div class="reveal">
+                    <span class="eyebrow">For Startups</span>
+                    <h2>From First Idea to Funded Growth</h2>
+                    <div class="rule"></div>
+                    <p class="lead">Whether you are preparing for your first raise or scaling after a funding round, we act as an extension of your founding team.</p>
+                    <ul class="feature-list">
+                        <li><span class="idx">i.</span><div><strong>Startup Handholding</strong><span class="desc">Structured support across finance, compliance and reporting.</span></div></li>
+                        <li><span class="idx">ii.</span><div><strong>Capital Raising &amp; Project Financing</strong><span class="desc">Preparation and support through the funding process.</span></div></li>
+                        <li><span class="idx">iii.</span><div><strong>Pitch &amp; Investor Reporting</strong><span class="desc">Clear, credible numbers for pitch decks and investor updates.</span></div></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
         <!-- About -->
         <section id="about" class="bg-stone">
             <div class="container">
                 <div class="section-head center reveal">
                     <span class="eyebrow">About Us</span>
-                    <h2>Why Growing Businesses Trust JF Advisory</h2>
+                    <h2>Why Growing Businesses Trust Jain Financial Advisory</h2>
                     <div class="rule"></div>
-                    <p class="lead">Whether you are a startup seeking funding or an established global entity requiring flawless tax compliance and foreign bookkeeping, our expert team acts as an extension of your business.</p>
+                    <p class="lead">Whether you are an established global entity requiring flawless bookkeeping and tax compliance or a startup seeking funding, our expert team acts as an extension of your business.</p>
                 </div>
                 <div class="pillars reveal">
+                    <div class="pillar">
+                        <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="4"/><rect x="3" y="10" width="18" height="4"/><rect x="3" y="16" width="18" height="4"/></svg></div>
+                        <h3>Full-Stack Finance</h3>
+                        <p>From bookkeeping to Virtual CFO.</p>
+                    </div>
                     <div class="pillar">
                         <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg></div>
                         <h3>Risk Mitigation</h3>
@@ -355,11 +418,6 @@
                         <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
                         <h3>Growth Focused</h3>
                         <p>Data-driven FP&amp;A and capital raising.</p>
-                    </div>
-                    <div class="pillar">
-                        <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="4"/><rect x="3" y="10" width="18" height="4"/><rect x="3" y="16" width="18" height="4"/></svg></div>
-                        <h3>Full-Stack Finance</h3>
-                        <p>From bookkeeping to Virtual CFO.</p>
                     </div>
                     <div class="pillar">
                         <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></div>
@@ -393,9 +451,9 @@
                 <div>
                     <span class="eyebrow">Contact Us to Learn More</span>
                     <h2>Ready to Transform Your Finances?</h2>
-                    <p>Speak with our team about Virtual CFO support, bookkeeping, tax planning or startup funding.</p>
+                    <p>Speak with our team about bookkeeping, tax planning, Virtual CFO support or startup funding.</p>
                 </div>
-                <a href="mailto:contact@jainfinancials.com" class="btn btn-gold">Get in Touch</a>
+                <a href="mailto:jainfinancial@jfadvisory.in" class="btn btn-gold">Get in Touch</a>
             </div>
         </section>
     </main>
@@ -406,37 +464,36 @@
             <div class="footer-grid">
                 <div>
                     <div class="footer-brand">
-                        <div class="logo-tile"><img src="logo.png" alt="JF Advisory logo"></div>
-                        <span>JF Advisory</span>
+                        <div class="logo-tile"><img src="logo.png" alt="Jain Financial Advisory logo"></div>
+                        <span>Jain Financial Advisory</span>
                     </div>
                     <p style="max-width: 380px;">Your dedicated financial partner, providing accounting, compliance and strategic advisory services to help you scale your vision globally.</p>
                     <div class="socials">
-                        <a href="#" aria-label="LinkedIn">in</a>
-                        <a href="#" aria-label="X">X</a>
+                        <a href="https://www.linkedin.com/company/jain-financial-advisory-and-co/" target="_blank" rel="noopener noreferrer" aria-label="Jain Financial Advisory on LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
                     </div>
                 </div>
                 <div>
                     <h4>Services</h4>
                     <div class="rule"></div>
                     <ul>
-                        <li><a href="#services">Virtual CFO</a></li>
-                        <li><a href="#services">Foreign Bookkeeping</a></li>
+                        <li><a href="#bookkeeping">Foreign Bookkeeping</a></li>
                         <li><a href="#compliance">Tax Planning</a></li>
+                        <li><a href="#advisory">Virtual CFO &amp; FP&amp;A</a></li>
                         <li><a href="#startups">Startup Funding</a></li>
-                        <li><a href="#services">Payroll Services</a></li>
+                        <li><a href="#bookkeeping">Payroll Services</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4>Contact</h4>
                     <div class="rule"></div>
-                    <ul>
-                        <li><a href="mailto:contact@jainfinancials.com">contact@jainfinancials.com</a></li>
-                        <li>+91 (XXX) XXX-XXXX</li>
+                    <ul class="contact-list">
+                        <li><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 7l9 6 9-6"/></svg><a href="mailto:jainfinancial@jfadvisory.in">jainfinancial@jfadvisory.in</a></li>
+                        <li><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>Udaipur, India</span></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; <span id="year"></span> JF Advisory. All rights reserved.</p>
+                <p>&copy; <span id="year"></span> Jain Financial Advisory. All rights reserved.</p>
                 <div class="links">
                     <a href="#">Privacy Policy</a>
                     <a href="#">Terms of Service</a>
@@ -452,6 +509,46 @@
         document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => document.querySelector('.nav-links').classList.remove('open')));
         const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
         document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+        // Ambient background: slowly rotating golden spiral of fine lines
+        (function () {
+            const c = document.getElementById('ambient');
+            const ctx = c.getContext('2d');
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            let w, h, dpr;
+            function resize() {
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                w = window.innerWidth; h = window.innerHeight;
+                c.width = w * dpr; c.height = h * dpr;
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+            function spiral(cx, cy, scale, rot, color, arms) {
+                for (let a = 0; a < arms; a++) {
+                    ctx.beginPath();
+                    const off = rot + a * (Math.PI * 2 / arms);
+                    for (let t = 0; t < 7.5 * Math.PI; t += 0.05) {
+                        const r = scale * Math.exp(0.17 * t);
+                        const x = cx + r * Math.cos(t + off);
+                        const y = cy + r * Math.sin(t + off);
+                        t === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                    }
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+            }
+            function draw(time) {
+                const s = (time || 0) / 1000;
+                ctx.clearRect(0, 0, w, h);
+                const m = Math.max(w, h);
+                spiral(w * 0.82, h * 0.30, m * 0.006, s * 0.035, 'rgba(179,154,100,0.20)', 6);
+                spiral(w * 0.12, h * 0.85, m * 0.004, -s * 0.025, 'rgba(22,40,74,0.07)', 5);
+                if (!reduce) requestAnimationFrame(draw);
+            }
+            resize();
+            window.addEventListener('resize', () => { resize(); if (reduce) draw(0); });
+            draw(0);
+        })();
     </script>
 </body>
 </html>
