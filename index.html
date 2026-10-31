@@ -510,7 +510,8 @@
         const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
         document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-        // Ambient background: slowly rotating golden spiral of fine lines
+        // Ambient background: an elegant golden spiral that slowly turns and breathes,
+        // with soft points of light gliding along its arms.
         (function () {
             const c = document.getElementById('ambient');
             const ctx = c.getContext('2d');
@@ -522,27 +523,48 @@
                 c.width = w * dpr; c.height = h * dpr;
                 ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
             }
-            function spiral(cx, cy, scale, rot, color, arms) {
-                for (let a = 0; a < arms; a++) {
-                    ctx.beginPath();
-                    const off = rot + a * (Math.PI * 2 / arms);
-                    for (let t = 0; t < 7.5 * Math.PI; t += 0.05) {
-                        const r = scale * Math.exp(0.17 * t);
-                        const x = cx + r * Math.cos(t + off);
-                        const y = cy + r * Math.sin(t + off);
-                        t === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+            const B = 0.21, TMAX = 6.4 * Math.PI;
+            function pt(cx, cy, a0, t, off) {
+                const r = a0 * Math.exp(B * t);
+                return [cx + r * Math.cos(t + off), cy + r * Math.sin(t + off)];
+            }
+            function spiral(o) {
+                const { cx, cy, a0, rot, rgb, alpha, arms, s, glow } = o;
+                for (let k = 0; k < arms; k++) {
+                    const off = rot + k * (Math.PI * 2 / arms);
+                    // arm line, drawn in short segments so it fades in from the centre and out at the edge
+                    for (let t = 0.6; t < TMAX; t += 0.06) {
+                        const f = t / TMAX;
+                        const op = alpha * Math.sin(Math.PI * Math.min(1, f * 1.15));
+                        const [x1, y1] = pt(cx, cy, a0, t, off);
+                        const [x2, y2] = pt(cx, cy, a0, t + 0.07, off);
+                        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2);
+                        ctx.strokeStyle = 'rgba(' + rgb + ',' + op.toFixed(3) + ')';
+                        ctx.lineWidth = 1.1;
+                        ctx.stroke();
                     }
-                    ctx.strokeStyle = color;
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
+                    // gliding points of light
+                    if (glow) {
+                        for (let j = 0; j < 2; j++) {
+                            const t = ((s * 0.22 + k * 1.7 + j * TMAX / 2) % TMAX);
+                            const [x, y] = pt(cx, cy, a0, t, off);
+                            const f = t / TMAX, op = Math.sin(Math.PI * f) * glow;
+                            const g = ctx.createRadialGradient(x, y, 0, x, y, 9);
+                            g.addColorStop(0, 'rgba(' + rgb + ',' + op.toFixed(3) + ')');
+                            g.addColorStop(1, 'rgba(' + rgb + ',0)');
+                            ctx.fillStyle = g;
+                            ctx.beginPath(); ctx.arc(x, y, 9, 0, Math.PI * 2); ctx.fill();
+                        }
+                    }
                 }
             }
             function draw(time) {
                 const s = (time || 0) / 1000;
                 ctx.clearRect(0, 0, w, h);
                 const m = Math.max(w, h);
-                spiral(w * 0.82, h * 0.30, m * 0.006, s * 0.035, 'rgba(179,154,100,0.20)', 6);
-                spiral(w * 0.12, h * 0.85, m * 0.004, -s * 0.025, 'rgba(22,40,74,0.07)', 5);
+                const breathe = 1 + 0.035 * Math.sin(s * 0.5);
+                spiral({ cx: w * 0.84, cy: h * 0.30, a0: m * 0.0075 * breathe, rot: s * 0.09, rgb: '179,154,100', alpha: 0.55, arms: 3, s: s, glow: 0.75 });
+                spiral({ cx: w * 0.08, cy: h * 0.92, a0: m * 0.0055 / breathe, rot: -s * 0.06, rgb: '22,40,74', alpha: 0.14, arms: 2, s: s, glow: 0.18 });
                 if (!reduce) requestAnimationFrame(draw);
             }
             resize();
